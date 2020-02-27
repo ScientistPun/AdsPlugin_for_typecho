@@ -14,8 +14,6 @@ class Ads
     const version = '1.0.0';
 
     # ~
-
-    private static $instance = null;
     private $options = ['type'=>0, 'content'=>'', 'width'=>100, 'height'=>100];
     private $str = '';
     private $error = '';
@@ -23,14 +21,6 @@ class Ads
     public function __construct($options = [])
     {
         $this->options = array_merge($this->options, is_array($options) ? $options : []);
-    }
-
-    public static function instance($options = [])
-    {
-        if (is_null(self::$instance)) {
-            self::$instance = new static($options);
-        }
-        return self::$instance;
     }
 
     /**
@@ -71,7 +61,12 @@ class Ads
                 $str .= "'/></a></div>";
                 break;
             case 1:
-                $str = $content;
+                $str = "<div style='";
+                $str .= $w ? "width: {$w}px;" : "";
+                $str .= $h ? "height: {$h}px;" : "";
+                $str .= "'>";
+                $str .= $content;
+                $str .= "</div>";
             break;
             case 2:
                 $options = Helper::options();

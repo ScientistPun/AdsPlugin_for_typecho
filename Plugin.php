@@ -286,8 +286,7 @@ class AdsPlugin_Plugin implements Typecho_Plugin_Interface
         }
 
         require_once dirname(__FILE__) . '/Ads.php';
-        echo Ads::instance(['type' => $ad['type'], 'content' => $ad['content'], 'width' => $ad['width'], 'height' => $ad['height']])
-            ->show();
+        echo (new Ads(['type' => $ad['type'], 'content' => $ad['content'], 'width' => $ad['width'], 'height' => $ad['height']]))->show();
         return true;
     }
 }
