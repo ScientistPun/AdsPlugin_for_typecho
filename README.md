@@ -1,0 +1,2 @@
+# adsplugin_for_typecho
+typecho的广告位管理器
