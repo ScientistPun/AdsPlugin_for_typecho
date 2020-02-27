@@ -40,8 +40,8 @@ include 'menu.php';
                                 <tr>
                                     <th> </th>
                                     <th><?php _e('关键字'); ?></th>
-                                    <th><?php _e('展示方式'); ?></th>
                                     <th><?php _e('名称'); ?></th>
+                                    <th><?php _e('展示方式'); ?></th>
                                     <th><?php _e('宽度'); ?></th>
                                     <th><?php _e('高度'); ?></th>
                                     <th><?php _e('状态'); ?></th>
@@ -53,10 +53,10 @@ include 'menu.php';
                                         <tr id="aid-<?php echo $ad['aid']; ?>">
                                             <td><input type="checkbox" value="<?php echo $ad['aid']; ?>" name="aid[]" /></td>
                                             <td><a href="<?php echo $request->makeUriByRequest('aid=' . $ad['aid']); ?>" title="点击编辑"><?php echo $ad['keyword']; ?></a></td>
+                                            <td><?php echo $ad['name']; ?></td>
                                             <td><?php if ($ad['type'] == 0) echo '图片展示';
                                                 elseif ($ad['type'] == 1) echo '代码块';
                                                 else echo '轮播图展示'; ?></td>
-                                            <td><?php echo $ad['name']; ?></td>
                                             <td><?php echo $ad['width'] ? "{$ad['width']}px":"自适应"; ?></td>
                                             <td><?php echo $ad['height'] ? "{$ad['height']}px":"自适应"; ?></td>
                                             <td><?php echo $ad['status'] == 1 ? '启用' : '禁用'; ?></td>
