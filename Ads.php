@@ -14,7 +14,7 @@ class Ads
     const version = '1.0.0';
 
     # ~
-    private $options = ['type'=>0, 'content'=>'', 'width'=>100, 'height'=>100];
+    private $options = ['type' => 0, 'content' => '', 'width' => 100, 'height' => 100];
     private $str = '';
     private $error = '';
 
@@ -26,7 +26,8 @@ class Ads
     /**
      * 展示
      */
-    public function show() {
+    public function show()
+    {
         if (!$this->parse()) return $this->error;
         return $this->str;
     }
@@ -34,7 +35,8 @@ class Ads
     /**
      * 格式化输出
      */
-    protected function parse() {
+    protected function parse()
+    {
         $content = $this->options['content'];
         $w = $this->options['width'];
         $h = $this->options['height'];
@@ -56,8 +58,8 @@ class Ads
 
                 // 如果有宽高
                 $str .= "<img src='{$contentInfo[1]}?t={$updatetime}' alt='{$contentInfo[2]}' style='display: block; ";
-                $str .= $w ? "width: {$w}px;":"width: 100%;";
-                $str .= $h ? "height: {$h}px;":"height: 100%;";
+                $str .= $w ? "width: {$w}px;" : "width: 100%;";
+                $str .= $h ? "height: {$h}px;" : "height: 100%;";
                 $str .= "'/></a></div>";
                 break;
             case 1:
@@ -67,17 +69,22 @@ class Ads
                 $str .= "'>";
                 $str .= $content;
                 $str .= "</div>";
-            break;
+                break;
             case 2:
+                $content = json_decode($content, true);
+                if (!is_array($content)) {
+                    $this->error = '广告位内容错误';
+                    return false;
+                }
+
                 $options = Helper::options();
                 $pluginUrl = $options->pluginUrl . '/AdsPlugin';
-                $idname = 'carousel-'.mt_rand(1000, 9999);
+                $idname = 'carousel-' . mt_rand(1000, 9999);
                 $str .= "<div class='layui-carousel' id='{$idname}' style='";
                 $str .= $w ? "width: {$w}px;" : "width: 100%;";
                 $str .= $h ? "height: {$h}px;" : "height: 100%;";
                 $str .= "'><div carousel-item=''>";
 
-                $content = json_decode($content, true);
                 foreach ($content as $con) {
                     if (!isset($con['alt'])) $con['alt'] = $con['href'];
                     $str .= "<div><a target='_blank' href='{$con['href']}'><img src='{$con['src']}?t={$updatetime}' alt='{$con['alt']}' style='";
@@ -119,9 +126,8 @@ class Ads
         return true;
     }
 
-    private function getError() {
+    private function getError()
+    {
         return $this->error;
     }
-
-
 }
